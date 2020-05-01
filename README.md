@@ -11,6 +11,7 @@ Curso propuesto por el grupo de trabajo Semana de Ingenio y Diseño (**SID**) de
 ## Objetivos
 
 * Comprender el concepto de reutilización de componentes gráficos y sus ventajas a la hora de desarrollar interfaces gráficas de usuario.
+* Reconocer los diferentes enfoques que existen a la hora de realizar reutilización de componentes y en que casos es mejor utilizar uno u otro.
 * Identificar cuando es necesario realizar la reutilización de componentes y que enfoque es mejor realizar para esto.
 
 # Antes de Comenzar
@@ -24,6 +25,7 @@ private Color colorGrisClaro;
 
 **Ejemplificacón:**
 ```javascript
+// Dentro del constructor
 colorGrisClaro = new Color(249, 249, 249);
 ```
 
@@ -34,7 +36,7 @@ public Color getColorGrisClaro(){
 }
 ```
 
-* También vamos a crear un borde gris para limitar nuestros objetos gráficos:
+* También vamos a crear un borde gris lineal para limitar nuestros objetos gráficos:
 
 **Declaración:**
 ```javascript
@@ -43,6 +45,7 @@ private Border borderGris;
 
 **Ejemplificación:**
 ```javascript
+// Dentro del Constructor
 borderGris = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2, true);
 ```
 
@@ -53,9 +56,9 @@ public Border getBorderGris(){
 }
 ```
 
-***Nota:** Recordemos que estos objetos decoradores dentro del servicio se crean pensando en que serán utilizados en varias partes del proyecto, si ese no es el caso entonces el objeto decorador se debe crear en el componente gráfico correspondiente donde se unicamente se necesita.
+***Nota:** Recordemos que estos objetos decoradores dentro del servicio **RecursosService** se crean pensando en que serán utilizados en varias partes del proyecto, si ese no es el caso entonces el objeto decorador ser creado unicamente en el componente gráfico donde se necesita.*
 
-Recordando un poco nuestro recorrido tenemos nuestra vista principal con la integración de varios componentes, tenemos ademas un control de visibilidad mediante el enrutamiento de componentes gráficos y revisamos la importancia de controlar la creación de los componentes gráficos.
+Recordando un poco nuestro recorrido tenemos la vista principal con una integración de varios componentes, ademas existe un control de visibilidad mediante el enrutamiento de componentes gráficos. También se reviso la importancia de controlar la creación de los componentes gráficos.
 
 <div align='center'>
     <img  src='./resources/interfaz1.png'>
@@ -64,7 +67,7 @@ Recordando un poco nuestro recorrido tenemos nuestra vista principal con la inte
 
 # Reutilización de componentes gráficos
 
-En la clase de hoy nos enfocaremos en un único tema, este sera el de la reutilización de componentes y como cuando realizar esta practica:
+En la clase de hoy nos enfocaremos en un único tema, este sera el de la reutilización de componentes y en que casos realizar esta practica:
 
 * Reutilizacion de componentes gráficos.
     * Enfoque de reutilización por incorporación.
@@ -72,42 +75,48 @@ En la clase de hoy nos enfocaremos en un único tema, este sera el de la reutili
 
 # Reutilización de componentes gráficos
 
-En la clase pasada creamos una serie de componentes que aun no tienen nada adentro mas que un color de fondo, entre estos componentes están el componente de inicio, perfil, amigos, productos y configuraciones. En la clase de hoy vamos a construir el componente Inicio utilizando la reutilizacion de otros componentes que crearemos para esto.
+En la clase pasada creamos una serie de componentes que pueden ser visible una vez el usuario lo solicite oprimiendo los botones ubicados en el componente **navegacionUsuario**. Entre estos están el componente de **inicio**, **perfil**, **amigos**, **productos** y **configuraciones**. Sin embargo estos componentes aun no tienen nada mas que un color de fondo. 
+
+En la clase de hoy vamos a construir el componente **inicio** utilizando la reutilizacion de otros componentes que crearemos para este propósito.
 
 ## Concepto de reutilización
 
-Para entender un poco lo que queremos hacer vamos a ver cual es la expectativa a la que queremos llegar creando nuestro componente **inicio**, a continuación veremos el resultado al que se quiere llegar:  
+Para entender mejor el concepto de reutilización vamos a mostrar primero cual es la expectativa a la que queremos llegar creando nuestro componente **inicio**, a continuación veremos el resultado al que se quiere llegar:  
 
 <div align='center'>
     <img  src='./resources/interfaz2.png'>
     <p>Resultado de construcción de componente Inicio</p>
 </div>
 
-Si nos damos cuenta nuestro componente gráfico **inicio** tiene varios objetos gráficos que lo incorporan, tiene bastantes imágenes y texto que los conforma. Sin embargo si vemos a detalle podemos darnos cuenta de que existen ciertas particularidades con los objetos gráficos que componen a **inicio**.
+Si nos damos cuenta el componente gráfico **inicio** esta conformado por varios objetos gráficos, tiene algunos paneles, bastantes imágenes, títulos y párrafos.  Sin embargo al fijarnos a detalle podemos darnos cuenta de que existen ciertas particularidades con los objetos gráficos que conforman al componente gráfico **inicio**.
 
-Primero vamos a fijarnos en la parte superior, se puede ver que hay tres paneles y los tres están conformados por los mismos objetos gráficos, los tres tienen una imagen en la parte superior, un titulo y un párrafo.
+Primero vamos a fijarnos en la parte superior del componente, se puede ver que hay tres paneles y los tres contienen los mismos objetos gráficos, cada uno de ellos tiene una imagen en la parte superior, seguido de un titulo y un párrafo en la parte inferior.
 
 <div align='center'>
     <img  src='./resources/interfaz3.png'>
     <p>Paneles de la parte superior con un mismo patron en sus objetos gráficos</p>
 </div>
 
-Fijémonos ahora de la parte inferior se puede notar hay un panel que contiene un conjunto de paneles que están distribuidos uniformemente a lo largo del panel contenedor. Noten que cada uno de estos paneles cuentan con un patron, todos tienen un borde que los separa unos de otros, un icono un titulo y un párrafo.
+Veamos ahora de la parte inferior, se puede notar que hay un panel principal que contiene un conjunto de paneles que están distribuidos uniformemente a lo largo del panel contenedor. Noten que cada uno de estos paneles cuentan con un patron, todos tienen un borde que los separa unos de otros, un icono centrado, seguido de un titulo y un párrafo centrados de igual forma.
 
 <div align='center'>
     <img  src='./resources/interfaz4.png'>
     <p>Paneles de la parte inferior con un mismo patron en sus objetos gráficos</p>
 </div>
 
-El componente **inicio** podría escribirse completamente en la clase **Template** sin depender de ningún otro componente para su construcción y no esta mal, es una forma de hacerlo y esta bien. Sin embargo imaginen todo el código repetido que va existir dentro de esta clase para mostrar 3 paneles que tienen una misma estructura y otros 6 paneles que tienen esta misma condición.  Realmente es muy tedioso y llenara la clase **Template** de mucho código repetido que afectara en la forma en que se puede analizar mantener y entender el código.
+Lo único que cambia en ambos casos es el contenido en cada panel pero la estructura interna es idéntica, otro factor importante es que esta similitud en estructura esta dada por distintos objetos gráficos y aquí esta la **clave de usar un componente reutilizable** ya que sería mucho mas complicado crear un nuevo componente que repita el patron de un simple botón (piense en los botones del componente **navegacionUsuario**) a simplemente crear los botones similares en el mismo componente que se esta construyendo, sin embargo si hay un patron que se repite y vincula a varios objetos gráficos si vale la pena revisar si realizar la reutilización de componentes gráficos.
 
-Una alternativa a esto es la construcción de componentes gráficos que encapsulen el código de este patron identificado y podamos hacer uso de el. A continuación vamos a ver como hacer esto posible. 
+El componente **inicio** podría escribirse completamente en la clase **Template** sin depender de ningún otro componente para su construcción y no esta mal, es una forma de hacerlo y esta bien. Sin embargo imaginen todo el código repetido que va existir dentro de esta clase para mostrar 3 paneles que tienen una misma estructura y otros 6 paneles que tienen esta misma condición.  Realmente es muy tedioso y llenará la clase **Template** de código de más que afectara en la forma en que se analiza, mantiene y se entiende el código.
+
+Una alternativa a esto es la construcción de componentes gráficos que encapsulen el código de este patron de estructura identificado y podamos hacer uso de el las veces que sean necesarias. A continuación vamos a ver como hacer esto posible. 
+
+Cuando un componente depende de otros componentes para su construcción creamos una relación de **Componente Padre** Y **Componente Hijo**. Muchas veces vamos a encontrar este tipo de relaciónes, un ejemplo que ya hemos realizado es entre el componente **VistaPrincipal** y el componente **inicio**. Ahora el mismo componente **inicio** tendrá otros componentes para su construcción y estos serán los hijos de **inicio**. 
 
 ***Nota:** Vamos a ver 2 enfoques para hacer reutilización de componentes gráficos, una basada en la incorporación y otra basada en el posicionamiento.*
 
 ## Construcción base del componente inicio
 
-Vamos a construir la base del componente **inicio** en su clase **Template** vamos a tener los paneles y ciertos objetos más:
+Vamos a construir la base del componente **inicio**, en su clase **Template** se va a crear unos paneles que sirven de soporte a los componentes a construir y ademas se crearan ciertos objetos más:
 
 * Primero vamos a obtener los servicios **ObjGraficosService** y **RecursosService** como lo hemos hecho varias veces en anteriores clases:
 
@@ -130,7 +139,7 @@ sRecursos = RecursosService.getService();
 this.setBackground(sRecursos.getColorGrisClaro());
 ```
 
-* Vamos a crear paneles base para contener los objetos gráficos que queremos visibles en la ventana principal:
+* Vamos a crear paneles base para contener los objetos gráficos que queremos visibles en la ventana principal ademas de un Label que representará el titulo principal en el panel inferior (**pAcciones**):
 
 **Declaración:**
 ```javascript
@@ -161,14 +170,14 @@ public void crearJPanels(){
 this.crearJPanels();
 ```
 
-Si corremos nuestra aplicación y oprimimos el botón que llama al componente **inicio** se ve asi:
+Si corremos nuestra aplicación y oprimimos el botón que llama al componente **inicio** se ve de la siguiente manera:
 
 <div align='center'>
     <img  src='./resources/interfaz5.png'>
     <p>Componente inicio con sus paneles base adicionados</p>
 </div>
 
-En este componente vamos a realizar la modularización un tanto distinta, esta vez no vamos a separar la creación por tipo de objetos gráficos, vamos a separar la creación por paneles, con una pequeña excepción en la creación de objetos decoradores, por ahora solo vamos a crear los métodos y los dejaremos vacíos:
+En este componente vamos a realizar la modularización un tanto distinta, esta vez no vamos a separar la creación por tipo de objetos gráficos, **vamos a separar la creación por el contenido en cada panel**, con una pequeña excepción en la creación de objetos decoradores, por ahora solo vamos a crear los métodos y los dejaremos vacíos:
 
 ```javascript
 public void crearObjetosDecoradores(){
@@ -193,9 +202,7 @@ public void crearContenidoPAcciones(){
 
 # Enfoque de reutilización por incorporación.
 
-Cuando un componente incorpora otros componentes para su construcción creamos una relación de **Componente Padre** Y **Componente Hijo**. Muchas veces vamos a encontrar este tipo de relaciónes, un ejemplo que ya hemos realizado es entre el componente **VistaPrincipal** y el componente **inicio**. Ahora el mismo componente **inicio** tendrá otros componentes para su construcción y estos serán los hijos de **inicio**. 
-
-Este enfoque se caracteriza por que cuando creemos el **componente hijo**, este va a reemplazar un panel que tengamos previamente creado en el **componente padre**, por ejemplo ya tenemos los paneles **pMision, pVision, pNosotros** en el componente padre. Entonces no nos tenemos que preocupar con la locación del componente hijo, esta ya se configuro cuando se crearon los paneles de reemplazo, lo que si debemos tener pendiente es que tanto el panel como el componente hijo tengan el mismo tamaño y de esa forma no hayan problemas de posicionamiento. Este enfoque ya lo hemos realizado antes en la clase anterior.
+Este enfoque se caracteriza por que cuando creemos el **componente hijo**, este va a reemplazar un panel que tengamos previamente creado en el **componente padre**, por ejemplo ya tenemos los paneles **pMision, pVision, pNosotros** en el componente padre. Entonces no nos tenemos que preocupar con la locación del componente hijo, esta ya se configuro cuando se crearon los paneles de reemplazo, lo que si debemos tener pendiente es que tanto el panel como el componente hijo tengan el mismo tamaño y de esa forma no habrán problemas de posicionamiento. Este enfoque ya lo hemos realizado antes en la clase anterior.
 
 Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles superiores, este componente sera llamado **tarjeta**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
 
@@ -206,7 +213,7 @@ Vamos a crear un nuevo component que encapsule la creación del contenido de los
 
 * Empezamos con la clase **Component** y como de costumbre vamos a realizar los siguientes pasos:
 
-Como el componente no tiene botones no vamos a necesitar la implementación de ninguna interfaz.
+Como el componente no tiene botones no se va a necesitar la implementación de ninguna interfaz.
 ```javascript
 public class TarjetaComponent{
 }
