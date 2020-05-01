@@ -56,9 +56,9 @@ public Border getBorderGris(){
 }
 ```
 
-***Nota:** Recordemos que estos objetos decoradores dentro del servicio **RecursosService** se crean pensando en que serán utilizados en varias partes del proyecto, si ese no es el caso entonces el objeto decorador ser creado unicamente en el componente gráfico donde se necesita.*
+***Nota:** Recordemos que estos objetos decoradores dentro del servicio **RecursosService** se crean pensando en que serán utilizados en varias partes del proyecto, si ese no es el caso entonces el objeto decorador debe ser creado unicamente en el componente gráfico donde se necesita.*
 
-Recordando un poco nuestro recorrido tenemos la vista principal con una integración de varios componentes, ademas existe un control de visibilidad mediante el enrutamiento de componentes gráficos. También se reviso la importancia de controlar la creación de los componentes gráficos.
+Recordando un poco nuestro recorrido tenemos la vista principal con una integración de varios componentes, ademas existe un control de visibilidad mediante el enrutamiento de componentes gráficos. También se reviso la importancia de controlar la creación de objetos de los componentes gráficos.
 
 <div align='center'>
     <img  src='./resources/interfaz1.png'>
@@ -97,7 +97,7 @@ Primero vamos a fijarnos en la parte superior del componente, se puede ver que h
     <p>Paneles de la parte superior con un mismo patron en sus objetos gráficos</p>
 </div>
 
-Veamos ahora de la parte inferior, se puede notar que hay un panel principal que contiene un conjunto de paneles que están distribuidos uniformemente a lo largo del panel contenedor. Noten que cada uno de estos paneles cuentan con un patron, todos tienen un borde que los separa unos de otros, un icono centrado, seguido de un titulo y un párrafo centrados de igual forma.
+Veamos ahora la parte inferior, se puede notar que hay un panel principal que contiene un conjunto de paneles que están distribuidos uniformemente a lo largo del panel contenedor. Noten que cada uno de estos paneles cuentan con un patron, todos tienen un borde que los separa unos de otros, un icono centrado, seguido de un titulo y un párrafo centrados de igual forma.
 
 <div align='center'>
     <img  src='./resources/interfaz4.png'>
@@ -106,11 +106,11 @@ Veamos ahora de la parte inferior, se puede notar que hay un panel principal que
 
 Lo único que cambia en ambos casos es el contenido en cada panel pero la estructura interna es idéntica, otro factor importante es que esta similitud en estructura esta dada por distintos objetos gráficos y aquí esta la **clave de usar un componente reutilizable** ya que sería mucho mas complicado crear un nuevo componente que repita el patron de un simple botón (piense en los botones del componente **navegacionUsuario**) a simplemente crear los botones similares en el mismo componente que se esta construyendo, sin embargo si hay un patron que se repite y vincula a varios objetos gráficos si vale la pena revisar si realizar la reutilización de componentes gráficos.
 
-El componente **inicio** podría escribirse completamente en la clase **Template** sin depender de ningún otro componente para su construcción y no esta mal, es una forma de hacerlo y esta bien. Sin embargo imaginen todo el código repetido que va existir dentro de esta clase para mostrar 3 paneles que tienen una misma estructura y otros 6 paneles que tienen esta misma condición.  Realmente es muy tedioso y llenará la clase **Template** de código de más que afectara en la forma en que se analiza, mantiene y se entiende el código.
+El componente **inicio** podría escribirse completamente en la clase **Template** sin depender de ningún otro componente para su construcción y no esta mal, es una forma de hacerlo. Sin embargo imaginen todo el código repetido que va existir dentro de esta clase para mostrar 3 paneles que tienen una misma estructura y otros 6 paneles que tienen esta misma condición.  Realmente es muy tedioso y llenará la clase **Template** de código de más que afectara en la forma en que se analiza, mantiene y se entiende el código.
 
-Una alternativa a esto es la construcción de componentes gráficos que encapsulen el código de este patron de estructura identificado y podamos hacer uso de el las veces que sean necesarias. A continuación vamos a ver como hacer esto posible. 
+Una alternativa a esto es la construcción de componentes gráficos que encapsulen el código de este patron de estructura identificado y podamos hacer uso de él, las veces que sean necesarias. A continuación vamos a ver como hacer esto posible. 
 
-Cuando un componente depende de otros componentes para su construcción creamos una relación de **Componente Padre** Y **Componente Hijo**. Muchas veces vamos a encontrar este tipo de relaciónes, un ejemplo que ya hemos realizado es entre el componente **VistaPrincipal** y el componente **inicio**. Ahora el mismo componente **inicio** tendrá otros componentes para su construcción y estos serán los hijos de **inicio**. 
+Cuando un componente depende de otros componentes para su construcción creamos una relación de **Componente Padre** Y **Componente Hijo** (No tiene que ver con herencia). Muchas veces vamos a encontrar este tipo de relaciónes, un ejemplo que ya hemos realizado es entre el componente **VistaPrincipal** y el componente **inicio**. Ahora el mismo componente **inicio** tendrá otros componentes para su construcción y estos serán los hijos de **inicio**. 
 
 ***Nota:** Vamos a ver 2 enfoques para hacer reutilización de componentes gráficos, una basada en la incorporación y otra basada en el posicionamiento.*
 
@@ -202,7 +202,7 @@ public void crearContenidoPAcciones(){
 
 # Enfoque de reutilización por incorporación.
 
-Este enfoque se caracteriza por que cuando creemos el **componente hijo**, este va a reemplazar un panel que tengamos previamente creado en el **componente padre**, por ejemplo ya tenemos los paneles **pMision, pVision, pNosotros** en el componente padre. Entonces no nos tenemos que preocupar con la locación del componente hijo, esta ya se configuro cuando se crearon los paneles de reemplazo, lo que si debemos tener pendiente es que tanto el panel como el componente hijo tengan el mismo tamaño y de esa forma no habrán problemas de posicionamiento. Este enfoque ya lo hemos realizado antes en la clase anterior.
+Este enfoque se caracteriza por que cuando creemos el **componente hijo**, este va a reemplazar un panel que tengamos previamente creado en el **componente padre**, por ejemplo ya tenemos los paneles **pMision, pVision, pNosotros** en el componente padre. Entonces no nos tenemos que preocupar con la locación del componente hijo, esta ya se configuro cuando se crearon los paneles de reemplazo, lo que si debemos tener pendiente es que tanto el panel como el componente hijo tengan el mismo tamaño y de esa forma no habrán problemas de posicionamiento. Este enfoque ya lo hemos realizado en la clase anterior.
 
 Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles superiores, este componente sera llamado **tarjeta**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
 
@@ -320,7 +320,7 @@ iDimAux = new ImageIcon(
 lImagen= sObjGraficos.construirJLabel(null, 5, 5, 246, 110, iDimAux, null, null, null);
 this.add(lImagen);
 ```
-Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por el constructor.
+Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por parámetro el constructor.
 
 **Titulo:**
 ```javascript
@@ -331,7 +331,7 @@ this.lTitulo = sObjGraficos.construirJLabel(
 this.add(lTitulo);
 ```
 
-Se puede observar que el texto que se envía para la construcción del Label es el String **titulo** recibido desde el constructor
+Se puede observar que el texto que se envía para la construcción del Label es el String **titulo** recibido por parámetro desde el constructor.
 
 **Párrafo:**
 ```javascript
@@ -341,9 +341,9 @@ lParrafo= sObjGraficos.construirJLabel(
 );
 this.add(lParrafo);
 ```
-Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido desde el constructor.
+Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido por parámetro desde el constructor.
 
-En teoría nuestro componente esta listo, sin embargo ahora el editor de texto nos indica que hay un error en la clase **Component** justamente en la ejemplificación de la clase **Template**, esto es debido a que ahora por constructor esta pidiendo mas parámetros y como argumento solo estamos enviando la **inyección**.
+En teoría nuestro componente esta listo, sin embargo ahora el editor de texto nos indica que hay un error en la clase **Component** justamente en la ejemplificación de la clase **Template**, esto es debido a que ahora por constructor de están pidiendo mas parámetros y como argumento solo estamos enviando la **inyección**.
 
 <div align='center'>
     <img  src='./resources/codigo2.png'>
@@ -422,7 +422,7 @@ public void crearContenidoPMision(){
 }
 ```
 
-* Ahora el contenido esta listo, solo falta llamar al método **crearContenidoPMision** para que el contenido pueda ser visible:
+* Ahora el componente ha quedado incorporado, solo falta llamar al método **crearContenidoPMision** desde el constructor para que el contenido pueda ser visible:
 ```javascript
 // Dentro del constructor
 this.crearObjetosDecoradores();
@@ -466,6 +466,13 @@ public void crearContenidoPNosotros(){
 }
 ```
 
+**llamada de métodos dentro del constructor**
+```javascript
+// Dentro del constructor
+this.crearContenidoPVision();
+this.crearContenidoPNosotros(); 
+```
+
 Si corremos nuestra aplicación nuevamente ahora se vera asi:
 
 <div align='center'>
@@ -475,9 +482,9 @@ Si corremos nuestra aplicación nuevamente ahora se vera asi:
 
 # Enfoque de reutilización por Posicionamiento.
 
-Muchas veces vamos a querer un componente gráfico muchas veces dentro de nuestro componente padre, un ejemplo puede ser una lista de películas donde cada película va a ser un componente hijo, sin embargo podría ser un listado largo de películas que queremos mostrar y no sabemos cuantas sean. Por lo que crear paneles base para ser reemplazados es una idea, una buena opción es traer el componente gráfico hijo y posicionarlo dentro de un espacio. 
+Muchas veces vamos a querer un componente gráfico muchas veces dentro de nuestro componente padre, un ejemplo puede ser una lista de películas donde cada película va a ser un componente hijo, sin embargo podría ser un listado largo de películas que queremos mostrar y no sabemos cuantas sean. Por lo que crear paneles base para ser reemplazados es una mala idea, una buena opción es traer el componente gráfico hijo y posicionarlo dentro de un espacio. 
 
-Este enfoque se caracteriza por esto. Cuando creemos el **componente hijo**, este no va a reemplazar nada sino que va a ocupar un espacio dentro del **componente padre** por lo que ahora debemos tener presente la locación de este componente y ya no nos preocupa que el componente hijo tenga el mismo tamaño de algún objeto gráfico ya que al no reemplazar nada esta libre de tener un tamaño independiente.
+Este enfoque se caracteriza por esto. Cuando creemos el **componente hijo**, este no va a reemplazar nada sino que va a ocupar un espacio dentro del **componente padre** por lo que ahora debemos tener presente la locación de este componente y ya no nos preocupa que el componente hijo tenga el mismo tamaño de algún objeto gráfico previo ya que al no reemplazar nada esta libre de tener un tamaño independiente.
 
 Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles inferiores, este componente sera llamado **accion**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
 
@@ -591,7 +598,7 @@ iDimAux = new ImageIcon(
 this.lImagen = sObjGraficos.construirJLabel(null, (250-60)/2, 5, 45, 45, iDimAux, null, null, null);
 this.add(lImagen);
 ```
-Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por el constructor.
+Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por parámetro en el constructor.
 
 **Titulo:**
 ```javascript
@@ -602,7 +609,7 @@ this.lTitulo = sObjGraficos.construirJLabel(
 this.add(lTitulo);
 ```
 
-Se puede observar que el texto que se envía para la construcción del Label es el String **titulo** recibido desde el constructor
+Se puede observar que el texto que se envía para la construcción del Label es el String **titulo** recibido como parámetro desde el constructor.
 
 **Párrafo:**
 ```javascript
@@ -612,9 +619,9 @@ this.lParrafo = sObjGraficos.construirJLabel(
 );
 this.add(lParrafo);
 ```
-Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido desde el constructor.
+Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido como parámetro desde el constructor.
 
-Como vimos con nuestro anterior componente **tarjeta** la clase **Component** ahora debe ser modificada ya que la clase **Template** exige nuevos parámetros que deben ser enviados como argumento
+Como vimos con nuestro anterior componente **tarjeta** la clase **Component** ahora debe ser modificada ya que la clase **Template** exige nuevos parámetros que deben ser enviados como argumento.
 
 Para resolver esto vamos a recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**Imagen, Titulo, Párrafo**), para después pasárselos a su clase **Template**:
 ```javascript
@@ -646,7 +653,7 @@ this.iIdea = new ImageIcon("clase7/resources/img/ideas.png");
 this.iEstadistica = new ImageIcon("clase7/resources/img/estadisticas.png");
 this.iDireccion = new ImageIcon("clase7/resources/img/direccion.png");
 ```
-* Previo a la llamada del componente gráfico **Accion** vamos a darle un titulo al componente inferior:
+* Previo a la llamada del componente gráfico **Accion** vamos a darle un titulo al panel inferior **pAcciones**:
 ```javascript
 public void crearContenidoPAcciones(){
     this.lAcciones = sObjGraficos.construirJLabel(
@@ -656,7 +663,7 @@ public void crearContenidoPAcciones(){
 }
 ```
 
-Como esta vez no vamos a incorporar ni reemplazar ningún componente no podemos crear la ejemplificación de forma anónima entonces debemos crear variables para representar los objetos:
+Como esta vez no vamos a incorporar ni reemplazar ningún componente no podemos crear la ejemplificación de forma anónima entonces debemos crear variables de objeto para representar al componente hijo:
 ```javascript
 // Dentro del método crearContenidoPAcciones
 AccionTemplate p1= new AccionComponent();
@@ -674,7 +681,7 @@ AccionTemplate p1= new AccionComponent(
 ).getAccionTemplate();
 ```
 
-Ya tenemos un objeto del componente hijo dentro de **inicio** pero aun debemos indicarle la posición y la agregación en el panel inferior:
+Ya tenemos un objeto del componente hijo dentro de **inicio** pero aun debemos indicarle la posición y ademas realizar la agregación en el panel inferior **pAcciones**:
 ```javascript
 p1.setLocation(15, 50);
 this.pAcciones.add(p1);
@@ -749,7 +756,7 @@ Si corremos nuestra aplicación vamos a ver el resultado que queríamos ver desd
     <p>Vista Principal con el panel inicio terminado</p>
 </div>
 
-El anterior enfoque queda un tanto desperdiciado debido a que repetimos el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones mas tendríamos que volver a repetir este codigo y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, Titulo, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y de esta forma ahorrarnos lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios**.
+El anterior enfoque queda un tanto desperdiciado debido a que repetimos el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones más tendríamos que volver a repetir este codigo y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, Titulo, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y de esta forma ahorrarnos lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios**.
 
 ## Pequeña Reflexión de la reutilización
 
