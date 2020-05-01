@@ -768,7 +768,7 @@ Este posicionamiento basado en **porcentajes** es un enfoque que mejora el enfoq
 
 # Resultado
 
-Si has llegado hasta aquí **!Felicidades!** has aprendido a crear reutilización de componentes gráficos cuando utilizarlos y los diferentes enfoques de incorporación y posicionamiento para encapsular la estructura de una plantilla en un componente que podemos usar varias veces.
+Si has llegado hasta aquí **!Felicidades!** has aprendido a realizar reutilización de componentes gráficos, cuando utilizarse y los diferentes enfoques de **incorporación y posicionamiento** para encapsular la estructura de una plantilla en un componente que podemos usar varias veces.
 
 En la siguiente clase vamos a continuar con el tema de **Eventos** y esta vez vamos a estudiar los eventos del **Mouse**.
 
