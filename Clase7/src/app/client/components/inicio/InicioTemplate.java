@@ -105,7 +105,7 @@ public class InicioTemplate extends JPanel{
 
     public void crearContenidoPAcciones(){
         this.lAcciones = sObjGraficos.construirJLabel(
-            "Nuestros Servicios", 10, 10, 160, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFontTitulo()
+            "Nuestros Servicios", 10, 10, 160, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFontTitulo(), "c"
         );
         this.pAcciones.add(lAcciones);
 

@@ -16,6 +16,8 @@ Curso propuesto por el grupo de trabajo Semana de Ingenio y Diseño (**SID**) de
 
 # Antes de Comenzar
 
+Para continuar con el ejercicio deberá actualizar la carpeta **resources/img** ya que se han agregado nuevas imágenes. Estas las puede descargar en este mismo repositorio entrando a la carpeta **Clase7** seguido de **resources/img**.
+
 * Vamos a crear un nuevo color en el servicio **RecursosService**, recordamos el proceso de creación de un objeto gráfico dentro de este servicio:
 
 **Declaración:**
