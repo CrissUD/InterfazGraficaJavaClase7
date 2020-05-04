@@ -63,7 +63,7 @@ public Border getBorderGris(){
 Recordando un poco nuestro recorrido tenemos la vista principal con una integración de varios componentes, ademas existe un control de visibilidad mediante el enrutamiento de componentes gráficos. También se reviso la importancia de controlar la creación de objetos de los componentes gráficos.
 
 <div align='center'>
-    <img  src='./resources/interfaz1.png'>
+    <img  src='https://i.imgur.com/ODKZh9O.png'>
     <p>Vista Principal y Single-Page App</p>
 </div>
 
@@ -86,7 +86,7 @@ En la clase de hoy vamos a construir el componente **inicio** utilizando la reut
 Para entender mejor el concepto de reutilización vamos a mostrar primero cual es la expectativa a la que queremos llegar creando nuestro componente **inicio**, a continuación veremos el resultado al que se quiere llegar:  
 
 <div align='center'>
-    <img  src='./resources/interfaz2.png'>
+    <img  src='https://i.imgur.com/HQUhJfh.png'>
     <p>Resultado de construcción de componente Inicio</p>
 </div>
 
@@ -95,14 +95,14 @@ Si nos damos cuenta el componente gráfico **inicio** esta conformado por varios
 Primero vamos a fijarnos en la parte superior del componente, se puede ver que hay tres paneles y los tres contienen los mismos objetos gráficos, cada uno de ellos tiene una imagen en la parte superior, seguido de un titulo y un párrafo en la parte inferior.
 
 <div align='center'>
-    <img  src='./resources/interfaz3.png'>
+    <img  src='https://i.imgur.com/JFHTIId.png'>
     <p>Paneles de la parte superior con un mismo patron en sus objetos gráficos</p>
 </div>
 
 Veamos ahora la parte inferior, se puede notar que hay un panel principal que contiene un conjunto de paneles que están distribuidos uniformemente a lo largo del panel contenedor. Noten que cada uno de estos paneles cuentan con un patron, todos tienen un borde que los separa unos de otros, un icono centrado, seguido de un titulo y un párrafo centrados de igual forma.
 
 <div align='center'>
-    <img  src='./resources/interfaz4.png'>
+    <img  src='https://i.imgur.com/7r5EHeu.png'>
     <p>Paneles de la parte inferior con un mismo patron en sus objetos gráficos</p>
 </div>
 
@@ -175,7 +175,7 @@ this.crearJPanels();
 Si corremos nuestra aplicación y oprimimos el botón que llama al componente **inicio** se ve de la siguiente manera:
 
 <div align='center'>
-    <img  src='./resources/interfaz5.png'>
+    <img  src='https://i.imgur.com/ePwR4pI.png'>
     <p>Componente inicio con sus paneles base adicionados</p>
 </div>
 
@@ -209,7 +209,7 @@ Este enfoque se caracteriza por que cuando creemos el **componente hijo**, este 
 Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles superiores, este componente sera llamado **tarjeta**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
 
 <div align='center'>
-    <img  src='./resources/paquetes1.png'>
+    <img  src='https://i.imgur.com/KwTONrs.png'>
     <p>Componente tarjeta creado dentro del paquete components</p>
 </div>
 
@@ -280,7 +280,7 @@ this.setVisible(true);
 Note que el tamaño del componente debe ser igual panel que va a reemplazar. En este caso va a reemplazar a los paneles **pMision, pVision y pNosotros**.
 
 <div align='center'>
-    <img  src='./resources/codigo3.png'>
+    <img  src='https://i.imgur.com/HSuDEpl.png'>
     <p>Mismo tamaño del componente con los paneles a reemplazar</p>
 </div>
 
@@ -302,7 +302,7 @@ private ImageIcon iDimAux;
 Como el contenido del titulo, el contenido del párrafo y la imagen van a ser las propiedades que serán dinámicas (que van a variar). Estas debemos recibirlas de alguno modo. Se podría tomar el enfoque de **setters y getters** sin embargo se opta por recibir estos parámetros desde el constructor:
 
 <div align='center'>
-    <img  src='./resources/codigo1.png'>
+    <img  src='https://i.imgur.com/NrO68Ne.png'>
     <p>Parámetros recibidos en el constructor</p>
 </div>
 
@@ -348,7 +348,7 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 En teoría nuestro componente esta listo, sin embargo ahora el editor de texto nos indica que hay un error en la clase **Component** justamente en la ejemplificación de la clase **Template**, esto es debido a que ahora por constructor de están pidiendo mas parámetros y como argumento solo estamos enviando la **inyección**.
 
 <div align='center'>
-    <img  src='./resources/codigo2.png'>
+    <img  src='https://i.imgur.com/P1JVTR5.png'>
     <p>Error en clase Component ya que se piden mas parámetros</p>
 </div>
 
@@ -435,7 +435,7 @@ this.crearContenidoPMision();
 Si corremos nuestra aplicación y oprimimos el botón que muestra el componente **inicio** se vera algo asi:
 
 <div align='center'>
-    <img  src='./resources/interfaz6.png'>
+    <img  src='https://i.imgur.com/5tbsXSy.png'>
     <p>Interfaz gráfica con la llamada del componente tarjeta 1 vez</p>
 </div>
 
@@ -478,7 +478,7 @@ this.crearContenidoPNosotros();
 Si corremos nuestra aplicación nuevamente ahora se vera asi:
 
 <div align='center'>
-    <img  src='./resources/interfaz7.png'>
+    <img  src='https://i.imgur.com/4CorZ4I.png'>
     <p>Componente inicio con la reutilización del componente Tarjeta</p>
 </div>
 
@@ -491,7 +491,7 @@ Este enfoque se caracteriza por esto. Cuando creemos el **componente hijo**, est
 Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles inferiores, este componente sera llamado **accion**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
 
 <div align='center'>
-    <img  src='./resources/paquetes2.png'>
+    <img  src='https://i.imgur.com/hiWKgTt.png'>
     <p>Componente accion creado dentro del paquete components</p>
 </div>
 
@@ -580,7 +580,7 @@ private ImageIcon iDimAux;
 Como el contenido del titulo, el contenido del párrafo y el icono van a ser las propiedades que serán dinámicas (que van a variar). Estas debemos recibirlas de alguno modo. Nuevamente se opta por recibir estos parámetros desde el constructor:
 
 <div align='center'>
-    <img  src='./resources/codigo4.png'>
+    <img  src='https://i.imgur.com/f1oncLQ.png'>
     <p>Parámetros recibidos en el constructor</p>
 </div>
 
@@ -699,7 +699,7 @@ this.crearContenidoPAcciones();
 si ejecutamos nuestra aplicación se vera asi:
 
 <div align='center'>
-    <img  src='./resources/interfaz8.png'>
+    <img  src='https://i.imgur.com/a9mZnmc.png'>
     <p>Componente inicio con la agregación de un componente accion</p>
 </div>
 
@@ -754,7 +754,7 @@ this.pAcciones.add(p6);
 Si corremos nuestra aplicación vamos a ver el resultado que queríamos ver desde el comienzo:
 
 <div align='center'>
-    <img  src='./resources/interfaz2.png'>
+    <img  src='https://i.imgur.com/HQUhJfh.png'>
     <p>Vista Principal con el panel inicio terminado</p>
 </div>
 
