@@ -25,7 +25,7 @@ Para continuar con el ejercicio deberá actualizar la carpeta **resources/img** 
 private Color colorGrisClaro;
 ```
 
-**Ejemplificacón:**
+**Ejemplificación:**
 ```javascript
 // Dentro del constructor
 colorGrisClaro = new Color(249, 249, 249);
