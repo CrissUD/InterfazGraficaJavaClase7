@@ -683,6 +683,8 @@ AccionTemplate p1= new AccionComponent(
 ).getAccionTemplate();
 ```
 
+***Nota:** Pueden observar que creamos un objeto tipo Template del Componente Accion pero lo estamos igualando a la ejemplificación de la clase Component, esto claramente generaría error pero esto se hace por que de una vez en la ejemplificación vamos a traer la clase template a traves del método **getAccionTemplate()** y asi la igualdad será cierta.*
+
 Ya tenemos un objeto del componente hijo dentro de **inicio** pero aun debemos indicarle la posición y además realizar la agregación en el panel inferior **pAcciones**:
 ```javascript
 p1.setLocation(15, 50);
