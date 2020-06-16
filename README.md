@@ -319,7 +319,7 @@ Se puede notar que ahora el constructor a parte de recibir la **inyección de de
 iDimAux = new ImageIcon(
     iImagen.getImage().getScaledInstance(246, 110, Image.SCALE_AREA_AVERAGING)
 );
-lImagen= sObjGraficos.construirJLabel(null, 5, 5, 246, 110, iDimAux, null, null, null);
+lImagen= sObjGraficos.construirJLabel(null, 5, 5, 246, 110, iDimAux, null, null, null, "c");
 this.add(lImagen);
 ```
 Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por parámetro el constructor.
@@ -328,7 +328,7 @@ Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux*
 ```javascript
 // Dentro del constructor
 this.ltítulo = sObjGraficos.construirJLabel(
-    título, -15, 120, 180, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFonttítulo()
+    título, -15, 120, 180, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFonttítulo(), "c"
 );
 this.add(ltítulo);
 ```
@@ -339,7 +339,7 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 ```javascript
 // Dentro del constructor
 lParrafo = sObjGraficos.construirJLabel(
-    parrafo, 20, 120, 206, 120, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña()
+    parrafo, 20, 120, 206, 120, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
 );
 this.add(lParrafo);
 ```
@@ -597,7 +597,7 @@ Se puede notar que ahora el constructor a parte de recibir la **inyección de de
 iDimAux = new ImageIcon(
     imagen.getImage().getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING)
 );
-this.lImagen = sObjGraficos.construirJLabel(null, (250-60)/2, 5, 45, 45, iDimAux, null, null, null);
+this.lImagen = sObjGraficos.construirJLabel(null, (250-60)/2, 5, 45, 45, iDimAux, null, null, null, "c");
 this.add(lImagen);
 ```
 Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por parámetro en el constructor.
@@ -606,7 +606,7 @@ Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux*
 ```javascript
 // Dentro del constructor
 this.ltítulo = sObjGraficos.construirJLabel(
-    título, (250-220)/2, 50, 220, 30, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFonttítulo()
+    título, (250-220)/2, 50, 220, 30, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFonttítulo(), "c"
 );
 this.add(ltítulo);
 ```
@@ -617,7 +617,7 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 ```javascript
 // Dentro del constructor
 this.lParrafo = sObjGraficos.construirJLabel(
-    parrafo, (250-230)/2, 75, 230, 50, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña()
+    parrafo, (250-230)/2, 75, 230, 50, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
 );
 this.add(lParrafo);
 ```
