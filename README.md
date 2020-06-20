@@ -293,7 +293,7 @@ Este componente va a tener:
 Vamos a realizar su declaración:
 ```javascript
 // Declaración Objetos Gráficos
-private JLabel ltítulo, lImagen, lParrafo;
+private JLabel lTitulo, lImagen, lParrafo;
 
 // Declaración Objetos Decoradores
 private ImageIcon iDimAux;
@@ -327,10 +327,10 @@ Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux*
 **título:**
 ```javascript
 // Dentro del constructor
-this.ltítulo = sObjGraficos.construirJLabel(
-    título, -15, 120, 180, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFonttítulo(), "c"
+this.lTitulo = sObjGraficos.construirJLabel(
+    titulo, -15, 120, 180, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFontTitulo(), "c"
 );
-this.add(ltítulo);
+this.add(lTitulo);
 ```
 
 Se puede observar que el texto que se envía para la construcción del Label es el String **título** recibido por parámetro desde el constructor.
@@ -339,11 +339,12 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 ```javascript
 // Dentro del constructor
 lParrafo = sObjGraficos.construirJLabel(
-    parrafo, 20, 120, 206, 120, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
+    "<html><div align='justify'>"+parrafo+"</div></html>", 20, 120, 206, 120, 
+    null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
 );
 this.add(lParrafo);
 ```
-Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido por parámetro desde el constructor.
+Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido por parámetro desde el constructor. También se puede observar que el párrafo está contenido dentro de etiquetas html. Esto se realiza para darle la estructura de texto justificado ya que es el componente quien se debe encargar de la estructura.
 
 En teoría nuestro componente esta listo, sin embargo ahora el editor de texto nos indica que hay un error en la clase **Component** justamente en la ejemplificación de la clase **Template**, esto es debido a que ahora por constructor de están pidiendo más parámetros y como argumento solo estamos enviando la **inyección**.
 
@@ -355,10 +356,10 @@ En teoría nuestro componente esta listo, sin embargo ahora el editor de texto n
 Para resolver esto vamos a recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**título, Imagen, Párrafo**), para después pasárselos a su clase **Template**:
 ```javascript
 public TarjetaComponent(
-    String título, ImageIcon iImagen, String parrafo
+    String titulo, ImageIcon iImagen, String parrafo
 ){
     tarjetaTemplate = new TarjetaTemplate(
-        this, título, iImagen, parrafo
+        this, titulo, iImagen, parrafo
     );
 }
 ```
@@ -403,7 +404,7 @@ public void crearContenidoPMision(){
         new TarjetaComponent(
             "Nuestra Misión", 
             iTarjeta1, 
-            "<html><div align='justify'>Brindar cursos a la comunidad académica para complementar habilidades fuera del pensum común.</div></html>" 
+            "Brindar cursos a la comunidad académica para complementar habilidades fuera del pensum común." 
         )
     );
 }
@@ -418,7 +419,7 @@ public void crearContenidoPMision(){
         new TarjetaComponent(
             "Nuestra Misión", 
             iTarjeta1, 
-            "<html><div align='justify'>Brindar cursos a la comunidad académica para complementar habilidades fuera del pensum común.</div></html>" 
+            "Brindar cursos a la comunidad académica para complementar habilidades fuera del pensum común." 
         ).getTarjetaTemplate()
     );
 }
@@ -449,7 +450,7 @@ public void crearContenidoPVision(){
         new TarjetaComponent(
             "Nuestra Visión", 
             iTarjeta2, 
-            "<html><div align='justify'>Brindar cursos académicos al 80% de los estudiantes de ingeniería de Sistemás.</div></html>" 
+            "Brindar cursos académicos al 80% de los estudiantes de ingeniería de Sistemás." 
         ).getTarjetaTemplate()
     );
 }
@@ -462,7 +463,7 @@ public void crearContenidoPNosotros(){
         new TarjetaComponent(
             "Sobre Nosotros", 
             iTarjeta3, 
-            "<html><div align='justify'>Somos un grupo de trabajo de la Universidad distrital Francisco jose de Caldas.</div></html>"
+            "Somos un grupo de trabajo de la Universidad distrital Francisco jose de Caldas."
         ).getTarjetaTemplate()
     );
 }
@@ -571,7 +572,7 @@ Este componente va a tener:
 Vamos a realizar su declaración:
 ```javascript
 // Declaración Objetos Gráficos
-private JLabel lImagen, ltítulo, lParrafo;
+private JLabel lImagen, lTitulo, lParrafo;
 
 // Declaración Objetos Decoradores
 private ImageIcon iDimAux;
@@ -605,10 +606,10 @@ Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux*
 **título:**
 ```javascript
 // Dentro del constructor
-this.ltítulo = sObjGraficos.construirJLabel(
-    título, (250-220)/2, 50, 220, 30, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFonttítulo(), "c"
+this.lTitulo = sObjGraficos.construirJLabel(
+    titulo, (250-220)/2, 50, 220, 30, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontTitulo(), "c"
 );
-this.add(ltítulo);
+this.add(lTitulo);
 ```
 
 Se puede observar que el texto que se envía para la construcción del Label es el String **título** recibido como parámetro desde el constructor.
@@ -617,21 +618,22 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 ```javascript
 // Dentro del constructor
 this.lParrafo = sObjGraficos.construirJLabel(
-    parrafo, (250-230)/2, 75, 230, 50, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
+    "<html><div align='center'>"+parrafo+"</div></html>", (250-230)/2, 75, 230, 50, 
+    null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
 );
 this.add(lParrafo);
 ```
-Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido como parámetro desde el constructor.
+Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido como parámetro desde el constructor. Además el parrafo esta envuelto en etiquetas HTML que le proporcionan una estructura al texto de estar centrado. Recordemos que este componente se debe encargar de encapsular aspectos de estructura como este.
 
 Como vimos con nuestro anterior componente **tarjeta** la clase **Component** ahora debe ser modificada ya que la clase **Template** exige nuevos parámetros que deben ser enviados como argumento.
 
-Para resolver esto vamos a recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**Imagen, título, Párrafo**), para después pasárselos a su clase **Template**:
+Para resolver esto vamos a recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**Imagen, titulo, Párrafo**), para después pasárselos a su clase **Template**:
 ```javascript
 public AccionComponent(
-    ImageIcon imagen, String título, String parrafo
+    ImageIcon imagen, String titulo, String parrafo
 ){
     this.accionTemplate= new AccionTemplate(
-        this, imagen, título, parrafo
+        this, imagen, titulo, parrafo
     );
 }
 ```
@@ -659,7 +661,7 @@ this.iDireccion = new ImageIcon("clase7/resources/img/direccion.png");
 ```javascript
 public void crearContenidoPAcciones(){
     this.lAcciones = sObjGraficos.construirJLabel(
-        "Nuestros Servicios", 10, 10, 160, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFonttítulo()
+        "Nuestros Servicios", 10, 10, 160, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFontTitulo()
     );
     this.pAcciones.add(lAcciones);
 }
@@ -679,7 +681,7 @@ Debemos recordar:
 AccionTemplate p1= new AccionComponent(
     iClase, 
     "Clases", 
-    "<html><div align='center'>Clases a la comunidad que complementan el pensum.</div></html>"
+    "Clases a la comunidad que complementan el pensum."
 ).getAccionTemplate();
 ```
 
@@ -711,7 +713,7 @@ este proceso lo repetiremos varias veces más:
 AccionTemplate p2 = new AccionComponent(
     iPantalla, 
     "Clases Virtuales", 
-    "<html><div align='center'>Cursos virtuales como medio de enseñanza.</div></html>"
+    "Cursos virtuales como medio de enseñanza."
 ).getAccionTemplate();
 p2.setLocation(30 + p2.getWidth(), 50);
 this.pAcciones.add(p2);
@@ -720,7 +722,7 @@ this.pAcciones.add(p2);
 AccionTemplate p3 = new AccionComponent(
     iIdea, 
     "Generación de ideas", 
-    "<html><div align='center'>Desarrollo de ideas con tecnologías actuales.</div></html>"
+    "Desarrollo de ideas con tecnologías actuales."
 ).getAccionTemplate();
 p3.setLocation(45 + p3.getWidth() * 2, 50);
 this.pAcciones.add(p3);
@@ -729,7 +731,7 @@ this.pAcciones.add(p3);
 AccionTemplate p4 = new AccionComponent(
     iCelular, 
     "Notificaciones", 
-    "<html><div align='center'>Notificaión el estado de tus cursos y actividades.</div></html>"
+    "Notificaión el estado de tus cursos y actividades."
 ).getAccionTemplate();
 p4.setLocation(15, 65 + p4.getHeight());
 this.pAcciones.add(p4);
@@ -738,7 +740,7 @@ this.pAcciones.add(p4);
 AccionTemplate p5 = new AccionComponent(
     iEstadistica, 
     "Estadisticas", 
-    "<html><div align='center'>Gestión de participación en nuestros cursos.</div></html>"
+    "Gestión de participación en nuestros cursos."
 ).getAccionTemplate();
 p5.setLocation(30 + p5.getWidth(), 65 + p5.getHeight());
 this.pAcciones.add(p5);
@@ -747,7 +749,7 @@ this.pAcciones.add(p5);
 AccionTemplate p6 = new AccionComponent(
     iDireccion, 
     "Dirección", 
-    "<html><div align='center'>Damos direcciónamiento a nuestros estudiantes.</div></html>"
+    "Damos direcciónamiento a nuestros estudiantes."
 ).getAccionTemplate();
 p6.setLocation(45 + p6.getWidth() * 2, 65 + p6.getHeight());
 this.pAcciones.add(p6);
@@ -760,7 +762,7 @@ Si corremos nuestra aplicación vamos a ver el resultado que queríamos ver desd
     <p>Vista Principal con el panel inicio terminado</p>
 </div>
 
-El anterior enfoque queda un tanto desperdiciado debido a que repetimos el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones más tendríamos que volver a repetir este código y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, título, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y de esta forma ahorrarnos lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios**.
+El anterior enfoque queda un tanto desperdiciado debido a que repetimos el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones más tendríamos que volver a repetir este código y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, titulo, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y de esta forma ahorrarnos lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios**.
 
 ## Pequeña Reflexión de la reutilización
 
