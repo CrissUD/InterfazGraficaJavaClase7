@@ -507,26 +507,26 @@ Ejecutando la aplicación nuevamente ahora la interfaz se ve asi:
 
 # Enfoque de reutilización por Posicionamiento.
 
-Muchas veces vamos a querer un componente gráfico muchas veces dentro del componente padre, un ejemplo puede ser una lista de películas donde cada película va a ser un componente hijo, sin embargo podría ser un listado largo de películas que queremos mostrar y no sabemos cuantas sean. Por lo que crear paneles base para ser reemplazados es una mala idea, una buena opción es traer el componente gráfico hijo y posicionarlo dentro de un espacio. 
+A menudo existen casos donde se requiere un componente reutilizable una n cantidad de veces y no se tiene con certeza el numero de veces que se va a reutilizar, un ejemplo puede ser una lista de películas obtenidas externamente donde cada película va a ser un componente hijo, sin embargo podría ser un listado largo de películas que se va a mostrar y no se sabe cuantas sean exactamente. Por lo que crear paneles base para incorporar cada componente hijo es una mala idea, una buena opción es traer el componente gráfico hijo y posicionarlo dentro de un espacio dado. 
 
-Este enfoque se caracteriza por esto. Cuando creemos el **componente hijo**, este no va a reemplazar nada sino que va a ocupar un espacio dentro del **componente padre** por lo que ahora debemos tener presente la locación de este componente y ya no nos preocupa que el componente hijo tenga el mismo tamaño de algún objeto gráfico previo ya que al no reemplazar nada esta libre de tener un tamaño independiente.
+Este enfoque se caracteriza por que cuando se cree el **componente hijo**, este no va se va incorporar a ningún objeto gráfico directamente sino que va a ocupar un espacio dentro del **componente padre**. Por lo que ahora se debe tener presente la locación del componente aunque por otro lado ya no es una preocupación que el componente hijo tenga el mismo tamaño de algún objeto gráfico previo ya que al no incorporar nada esta libre de tener un tamaño independiente.
 
-Vamos a crear un nuevo component que encapsule la creación del contenido de los paneles inferiores, este componente sera llamado **accion**, para esto creamos su respectivo paquete y clases dentro del directorio **components**:
+Se crea un nuevo component que encapsule la creación del contenido de los paneles inferiores, este componente será llamado **accion**, para esto se crea su respectivo paquete y clases dentro del directorio **components**:
 
 <div align='center'>
     <img  src='https://i.imgur.com/hiWKgTt.png'>
     <p>Componente accion creado dentro del paquete components</p>
 </div>
 
-* Empezamos con la clase **Component** y como de costumbre vamos a realizar los siguientes pasos:
+* Se empieza con la clase **Component** y como de costumbre se realizan los siguientes pasos:
 
-Como el componente no tiene botones no vamos a necesitar la implementación de ninguna interfaz.
+Como el componente no tiene botones no va a necesitar la implementación de ninguna interfaz.
 ```javascript
 public class AccionComponent {
 }
 ```
 
-vamos a crear un objeto de la clase **Template** y realizaremos la inyección enviándole por argumento la referencia de si mismo con la palabra **this**:
+Se crea un objeto de la clase **Template** y se realiza la inyección enviándose por argumento la referencia de si mismo con la palabra **this**:
 
 **Declaración:**
 ```javascript
@@ -539,10 +539,10 @@ private AccionTemplate accionTemplate;
 this.accionTemplate= new AccionTemplate(this);
 ```
 
-Creamos su método **get** de su respectivo **Template**:
+Se crea su método **get** de su respectivo **Template**:
 ```javascript
 public AccionTemplate getAccionTemplate(){
-    return accionTemplate;
+  return accionTemplate;
 }
 ```
 
@@ -554,7 +554,7 @@ public class AccionTemplate extends JPanel {
 }
 ```
 
-Como hemos venido haciendo vamos a obtener los servicios **ObjGraficosService** y **RecursosService** además de obtener por constructor la inyección de la clase **Component**:
+Se obtienen los servicios **ObjGraficosService** y **RecursosService** además de obtener por constructor la inyección de la clase **Component**:
 
 **Ejemplificación**
 ```javascript
@@ -566,14 +566,13 @@ private RecursosService sRecursos;
 **Obtención de servicios e inyección:**
 ```javascript
 public AccionTemplate(AccionComponent accionComponent){
-
-    this.accionComponent = accionComponent;
-    sObjGraficos= ObjGraficosService.getService();
-    sRecursos = RecursosService.getService();
+  this.accionComponent = accionComponent;
+  sObjGraficos= ObjGraficosService.getService();
+  sRecursos = RecursosService.getService();
 }
 ```
 
-Ahora le damos propiedades gráficas al componente:
+Ahora se configuran las propiedades gráficas al componente:
 ```javascript
 // Dentro del constructor
 this.setSize(250, 125);
@@ -583,15 +582,15 @@ this.setLayout(null);
 this.setVisible(true);
 ```
 
-Note que el componente tiene un borde que llamamos del servicio **RecursosService** para poder diferenciarse. Además el tamaño del componente no debe ser igual a ningún objeto gráfico del componente padre ya que se usara un enfoque de **posicionamiento**.
+Note que el componente tiene un borde que se llama del servicio **RecursosService** para poder diferenciarse. Además el tamaño del componente no tiene la restricción de ser igual a ningún objeto gráfico del componente padre ya que se usará un enfoque de **posicionamiento**.
 
-Este componente va a tener:
+Este componente va a contener:
 * Label que contiene el título.
 * Label que contiene el icono.
 * Label que contiene el párrafo.
 * Objeto decorador iDimAux para redimensionar imágenes.
 
-Vamos a realizar su declaración:
+**declaración:**
 ```javascript
 // Declaración Objetos Gráficos
 private JLabel lImagen, lTitulo, lParrafo;
@@ -600,7 +599,7 @@ private JLabel lImagen, lTitulo, lParrafo;
 private ImageIcon iDimAux;
 ```
 
-Como el contenido del título, el contenido del párrafo y el icono van a ser las propiedades que serán dinámicas (que van a variar). Estas debemos recibirlas de alguno modo. Nuevamente se opta por recibir estos parámetros desde el constructor:
+Como el contenido del título, el contenido del párrafo y el icono van a ser las propiedades que serán dinámicas (que van a variar). Estas deben ser recibidas de alguno modo. Nuevamente se opta por recibir estos parámetros desde el constructor:
 
 <div align='center'>
     <img  src='https://i.imgur.com/f1oncLQ.png'>
@@ -608,19 +607,27 @@ Como el contenido del título, el contenido del párrafo y el icono van a ser la
 </div>
 
 Se puede notar que ahora el constructor a parte de recibir la **inyección de dependencia** recibe también ahora:
-* Un **ImageIcon** que representa el icono del componente
+* Un **ImageIcon** que representa el icono del componente.
 * Un **String** que representa el título.
 * Un **String** que representa el párrafo.
 
-**Nota:** Como el código de este componente también es corto y para evitar la declaración de más atributos en la clase vamos a crear los objetos gráficos dentro del constructor:
+***Nota:** Como el código de este componente también es corto y para evitar la declaración de más atributos en la clase se crean los objetos gráficos dentro del constructor:*
 
 **Imagen:**
 ```javascript
 // Dentro del constructor
 iDimAux = new ImageIcon(
-    imagen.getImage().getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING)
+  imagen.getImage()
+    .getScaledInstance(45, 45, Image.SCALE_AREA_AVERAGING)
 );
-this.lImagen = sObjGraficos.construirJLabel(null, (250-60)/2, 5, 45, 45, iDimAux, null, null, null, "c");
+this.lImagen = sObjGraficos.construirJLabel(
+  null, 
+  (250 - 60) / 2, 5, 45, 45,
+  null,
+  iDimAux, 
+  null, null, null, null,
+  "c"
+);
 this.add(lImagen);
 ```
 Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux** es la que fue recibida por parámetro en el constructor.
@@ -629,7 +636,14 @@ Se puede observar que la imagen que redimensiona la variable auxiliar **iDimAux*
 ```javascript
 // Dentro del constructor
 this.lTitulo = sObjGraficos.construirJLabel(
-    titulo, (250-220)/2, 50, 220, 30, null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontTitulo(), "c"
+  titulo,
+  (250 - 220) / 2, 50, 220, 30,
+  null, null,
+  sRecursos.getFontTitulo(),
+  null,
+  sRecursos.getColorGrisOscuro(),
+  null,
+  "c"
 );
 this.add(lTitulo);
 ```
@@ -640,29 +654,31 @@ Se puede observar que el texto que se envía para la construcción del Label es 
 ```javascript
 // Dentro del constructor
 this.lParrafo = sObjGraficos.construirJLabel(
-    "<html><div align='center'>"+parrafo+"</div></html>", (250-230)/2, 75, 230, 50, 
-    null, sRecursos.getColorGrisOscuro(), null, sRecursos.getFontPequeña(), "c"
+  "<html><div align='center'>" + parrafo + "</div></html>",
+  (250 - 230) / 2, 75, 230, 50, 
+  null, null,
+  sRecursos.getFontLigera(), 
+  null, 
+  sRecursos.getColorGrisOscuro(),
+  null,
+  "c"
 );
 this.add(lParrafo);
 ```
-Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido como parámetro desde el constructor. Además el parrafo esta envuelto en etiquetas HTML que le proporcionan una estructura al texto de estar centrado. Recordemos que este componente se debe encargar de encapsular aspectos de estructura como este.
+Se puede observar que el texto que se envía para la construcción del Label es el String **parrafo** recibido como parámetro desde el constructor. Además el parrafo esta envuelto en etiquetas HTML que le proporcionan una estructura al texto de estar centrado. Recordar que este componente se debe encargar de encapsular aspectos de estructura como este.
 
-Como vimos con el anterior componente **tarjeta** la clase **Component** ahora debe ser modificada ya que la clase **Template** exige nuevos parámetros que deben ser enviados como argumento.
+Como se vio con el anterior componente **tarjeta** la clase **Component** ahora debe ser modificada ya que la clase **Template** exige nuevos parámetros que deben ser enviados como argumento.
 
-Para resolver esto vamos a recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**Imagen, titulo, Párrafo**), para después pasárselos a su clase **Template**:
+Para resolver esto se debe recibir por parámetro en el constructor de la clase **Component** los mismos parámetros (**Imagen, titulo, Párrafo**), para después pasárselos a su clase **Template**:
 ```javascript
-public AccionComponent(
-    ImageIcon imagen, String titulo, String parrafo
-){
-    this.accionTemplate= new AccionTemplate(
-        this, imagen, titulo, parrafo
-    );
+public AccionComponent(ImageIcon imagen, String titulo, String parrafo) {
+    this.accionTemplate= new AccionTemplate(this, imagen, titulo, parrafo);
 }
 ```
 
-El componente gráfico **Accion** esta listo para usarse ahora vamos a ver de que manera se llama este desde su componente padre para ser utilizado.
+El componente gráfico **Accion** esta listo para usarse ahora se explica de que manera se reutilizará desde su componente padre.
 
-Nos posicionamos en la clase **InicioTemplate** y allí primero vamos a declarar las imágenes que necesitamos para los componentes y luego las ejemplificamos:
+En la clase **InicioTemplate** primero se van a declarar las imágenes necesarias para los componentes, luego se ejemplifican:
 
 **Declaración:**
 ```javascript
@@ -672,133 +688,140 @@ private ImageIcon iClase, iPantalla, iIdea, iCelular, iEstadistica, iDireccion;
 **Ejemplificación:**
 ```javascript
 // Dentro del método crearObjetosDecoradores
-this.iClase = new ImageIcon("clase7/resources/img/clases.png");
-this.iPantalla = new ImageIcon("clase7/resources/img/pantalla.png");
-this.iCelular = new ImageIcon("clase7/resources/img/celular.png");
-this.iIdea = new ImageIcon("clase7/resources/img/ideas.png");
-this.iEstadistica = new ImageIcon("clase7/resources/img/estadisticas.png");
-this.iDireccion = new ImageIcon("clase7/resources/img/direccion.png");
+this.iClase = new ImageIcon("clase7/resources/images/clases.png");
+this.iPantalla = new ImageIcon("clase7/resources/images/pantalla.png");
+this.iCelular = new ImageIcon("clase7/resources/images/celular.png");
+this.iIdea = new ImageIcon("clase7/resources/images/ideas.png");
+this.iEstadistica = new ImageIcon("clase7/resources/images/estadisticas.png");
+this.iDireccion = new ImageIcon("clase7/resources/images/direccion.png");
 ```
-* Previo a la llamada del componente gráfico **Accion** vamos a darle un título al panel inferior **pAcciones**:
+* Previo a la llamada del componente gráfico **Accion** se va crear un título al panel inferior **pAcciones**:
 ```javascript
 public void crearContenidoPAcciones(){
-    this.lAcciones = sObjGraficos.construirJLabel(
-        "Nuestros Servicios", 10, 10, 160, 30, null, sRecursos.getColorAzul(), null, sRecursos.getFontTitulo()
-    );
-    this.pAcciones.add(lAcciones);
+  this.lAcciones = sObjGraficos.construirJLabel(
+    "Nuestros Servicios",
+    10, 10, 160, 30,
+    null, null,
+    sRecursos.getFontTitulo(),
+    null,
+    sRecursos.getColorAzul(),
+    null,
+    "c"
+  );
+  this.pAcciones.add(lAcciones);
 }
 ```
 
-Como esta vez no vamos a incorporar ni reemplazar ningún componente no podemos crear la ejemplificación de forma anónima entonces debemos crear variables de objeto para representar al componente hijo:
+Como esta vez no se va a incorporar ningún componente no es posible crear la ejemplificación de forma anónima, es necesario crear variables de objeto para representar al componente hijo:
 ```javascript
 // Dentro del método crearContenidoPAcciones
 AccionTemplate p1= new AccionComponent();
 ```
-Debemos recordar:
-* la clase **AccionComponent** nos exige el envío de algunos argumentos.
-* Debemos obtener la clase **Template** del componente ya que el objeto que queremos crear es de esta clase.
+Se debe recordar que:
+* la clase **AccionComponent** exige el envío de algunos argumentos.
+* Se debe obtener la clase **Template** del componente ya que el objeto que se debe agregar debe contener características gráficas y se declaro inicialmente como un **ActionTemplate**.
 
 ```javascript
 // COMPONENTE ACCIÓN 1 ------------------------------------
 AccionTemplate p1= new AccionComponent(
-    iClase, 
-    "Clases", 
-    "Clases a la comunidad que complementan el pensum."
+  iClase, 
+  "Clases", 
+  "Clases a la comunidad que complementan el pensum."
 ).getAccionTemplate();
 ```
 
-***Nota:** Pueden observar que creamos un objeto tipo Template del Componente Accion pero lo estamos igualando a la ejemplificación de la clase Component, esto claramente generaría error pero esto se hace por que de una vez en la ejemplificación vamos a traer la clase template a traves del método **getAccionTemplate()** y asi la igualdad será cierta.*
+***Nota:** Puede observar que se crea un objeto tipo Template del Componente Accion pero se esta igualando a la ejemplificación de la clase Component, esto claramente generaría error pero esto se hace por que inmediatamente en la ejemplificación se va a traer la clase template a traves del método **getAccionTemplate()** y asi la igualdad será cierta.*
 
-Ya tenemos un objeto del componente hijo dentro de **inicio** pero aun debemos indicarle la posición y además realizar la agregación en el panel inferior **pAcciones**:
+Ya se tiene un objeto del componente hijo dentro de **inicio** pero aun se debe indicar la posición y además realizar la agregación en el panel inferior **pAcciones**:
 ```javascript
 p1.setLocation(15, 50);
 this.pAcciones.add(p1);
 ```
 
-Para probar el método lo llamaremos en el constructor:
+Para probar el método se llama en el constructor:
 
 ```javascript
 // Dentro del constructor
 this.crearContenidoPAcciones();
 ```
 
-si ejecutamos la aplicación se vera asi:
+Al ejecutar la aplicación, la interfaz luce asi:
 
 <div align='center'>
-    <img  src='https://i.imgur.com/a9mZnmc.png'>
+    <img  src='https://i.imgur.com/2pxfy1H.png'>
     <p>Componente inicio con la agregación de un componente accion</p>
 </div>
 
-este proceso lo repetiremos varias veces más:
+este proceso se repite varias veces más:
 ```javascript
 // COMPONENTE ACCIÓN 2 ------------------------------------
 AccionTemplate p2 = new AccionComponent(
-    iPantalla, 
-    "Clases Virtuales", 
-    "Cursos virtuales como medio de enseñanza."
+  iPantalla, 
+  "Clases Virtuales", 
+  "Cursos virtuales como medio de enseñanza."
 ).getAccionTemplate();
 p2.setLocation(30 + p2.getWidth(), 50);
 this.pAcciones.add(p2);
 
 // COMPONENTE ACCIÓN 3 ------------------------------------
 AccionTemplate p3 = new AccionComponent(
-    iIdea, 
-    "Generación de ideas", 
-    "Desarrollo de ideas con tecnologías actuales."
+  iIdea, 
+  "Generación de ideas", 
+  "Desarrollo de ideas con tecnologías actuales."
 ).getAccionTemplate();
 p3.setLocation(45 + p3.getWidth() * 2, 50);
 this.pAcciones.add(p3);
 
 // COMPONENTE ACCIÓN 4 ------------------------------------
 AccionTemplate p4 = new AccionComponent(
-    iCelular, 
-    "Notificaciones", 
-    "Notificaión el estado de tus cursos y actividades."
+  iCelular, 
+  "Notificaciones", 
+  "Notificaión el estado de tus cursos y actividades."
 ).getAccionTemplate();
 p4.setLocation(15, 65 + p4.getHeight());
 this.pAcciones.add(p4);
 
 // COMPONENTE ACCIÓN 5 ------------------------------------
 AccionTemplate p5 = new AccionComponent(
-    iEstadistica, 
-    "Estadisticas", 
-    "Gestión de participación en nuestros cursos."
+  iEstadistica, 
+  "Estadisticas", 
+  "Gestión de participación en nuestros cursos."
 ).getAccionTemplate();
 p5.setLocation(30 + p5.getWidth(), 65 + p5.getHeight());
 this.pAcciones.add(p5);
 
 // COMPONENTE ACCIÓN 6 ------------------------------------
 AccionTemplate p6 = new AccionComponent(
-    iDireccion, 
-    "Dirección", 
-    "Damos direcciónamiento a nuestros estudiantes."
+  iDireccion, 
+  "Dirección", 
+  "Damos direcciónamiento a nuestros estudiantes."
 ).getAccionTemplate();
 p6.setLocation(45 + p6.getWidth() * 2, 65 + p6.getHeight());
 this.pAcciones.add(p6);
 ```
 
-Si corremos la aplicación vamos a ver el resultado que queríamos ver desde el comienzo:
+Corriendo la aplicación es posible ver el resultado propuesto desde el comienzo:
 
 <div align='center'>
     <img  src='https://i.imgur.com/HQUhJfh.png'>
     <p>Vista Principal con el panel inicio terminado</p>
 </div>
 
-El anterior enfoque queda un tanto desperdiciado debido a que repetimos el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones más tendríamos que volver a repetir este código y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, titulo, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y de esta forma ahorrarnos lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios**.
+El anterior enfoque queda un tanto desperdiciado debido a que se esta repitiendo el código las 6 veces que fue reutilizado el componente. Si existieran 10 acciones más se tendría que volver a repetir este código y no es para nada optimo hacer esto. Un enfoque apropiado es crear un arreglo de objetos donde cada objeto contenga la información necesaria (Imagen, titulo, Párrafo) y recorrerlo mediante un ciclo para que de esta forma el código solo sea escrito una sola vez y asi ahorrar lineas de código. Sin embargo este enfoque se discutirá en futuras clases cuando se hable acerca de **Servicios Lógicos**.
 
 ## Pequeña Reflexión de la reutilización
 
-El concepto de reutilización es quizás el factor que más le da reconocimiento al uso de los componentes gráficos, de esta forma no solo tenemos un código mucho más entendible y organizado. También estamos encapsulado la estructura de una plantilla dentro de un componente lo cual dota del código de una estructuración y modularizacion alta. Incluso el concepto de reutilización puede ser tan util  que si por ejemplo en algún otro componente como puede ser **Productos** quiero usar uno de estos componentes reutilizables perfectamente se puede hacer haciendo de su función mucho más amplia para el proyecto. 
+El concepto de reutilización es quizás el factor que más le da reconocimiento al uso de los componentes gráficos, de esta forma no solo se tiene un código mucho más entendible y organizado. También se esta encapsulado la estructura de una plantilla dentro de un componente lo cual dota del código de una estructuración y modularizacion alta. Incluso el concepto de reutilización puede ser tan util  que si por ejemplo en algún otro componente como puede ser **Productos** se quiere usar uno de estos componentes reutilizables perfectamente se puede hacer haciendo de su función mucho más amplia para el proyecto. 
 
-Otro criterio que podría tomarse a favor es el dinamismo hacia el tamaño y posición de objetos gráficos dentro de la estructura de un componente altamente reutilizable, piense por un momento, que tal si quiero usar de nuevo el componente **tarjeta** en otra parte de mi proyecto pero lo quiero con más altura o menos ancho, podría el componente pedir también el ancho y alto por parámetro que necesitemos para incorporarlo o posicionarlo en la interfaz y usar un posicionamiento y tamaño de  los objetos gráficos internos basado en **porcentajes** para que no se pierda la estructura deseada.
+Otro criterio que podría tomarse a favor es el dinamismo hacia el tamaño y posición de objetos gráficos dentro de la estructura de un componente altamente reutilizable, piense por un momento, que tal si se quiere usar de nuevo el componente **tarjeta** en otra parte del proyecto pero esta vez con más altura o menos ancho, podría entonces el componente pedir el ancho y alto por parámetros para incorporarlo o posicionarlo en la interfaz. Además se puede usar un posicionamiento y tamaño de los objetos gráficos internos basado en **porcentajes** para que no se pierda la estructura deseada.
 
 Este posicionamiento basado en **porcentajes** es un enfoque que mejora el enfoque de posicionamiento en pixeles pero esta basado en el. En este curso no veremos dicho enfoque pero se menciona para motivar a la investigación al estudiante de este curso.
 
 # Resultado
 
-Si has llegado hasta aquí **!Felicidades!** has aprendido a realizar reutilización de componentes gráficos, cuando utilizarse y los diferentes enfoques de **incorporación y posicionamiento** para encapsular la estructura de una plantilla en un componente que podemos usar varias veces.
+Si has llegado hasta aquí **!Felicidades!** se ha aprendido a realizar reutilización de componentes gráficos, cuando utilizarse y los diferentes enfoques de **incorporación y posicionamiento** para encapsular la estructura de una plantilla en un componente que se puede usar varias veces.
 
-En la siguiente clase vamos a continuar con el tema de **Eventos** y esta vez vamos a estudiar los eventos del **Mouse**.
+En la siguiente clase se revisará de nuevo el tema de **Eventos** y esta vez vamos a estudiar los eventos del **Mouse**.
 
 # Actividad
 

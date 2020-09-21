@@ -39,7 +39,7 @@ public class InicioTemplate extends JPanel {
     this.crearContenidoPMision();
     this.crearContenidoPVision();
     this.crearContenidoPNosotros();
-    // this.crearContenidoPAcciones();
+    this.crearContenidoPAcciones();
 
     this.setSize(850, 600);
     this.setBackground(sRecursos.getColorGrisClaro());
