@@ -60,6 +60,36 @@ public Color getColorGrisClaro(){ return colorGrisClaro; }
 
 ***Nota:** Recordar que estos objetos decoradores dentro del servicio **RecursosService** se crean pensando en que serán utilizados en varias partes del proyecto, si ese no es el caso entonces el objeto decorador debe ser creado unicamente en el componente gráfico donde se necesita.*
 
+### **Ajustes en Vista Principal**
+
+En esta sesión se va a construir el componente **inicio** y se quiere que una vez se abra la vista principal este sea visible. Para esto se realizan unas pequeñas modificaciones en la clase **VistaPrincipalComponent**:
+
+* **Ejemplificación de componente dentro de constructor**
+
+Anteriormente se había configurado la ejemplificación del componente **inicio** dentro del método **mostrarComponente** en su respectivo caso en el Switch, sin embargo ahora se realiza su ejemplificación dentro del constructor para que pueda ser visualizado una ez se abre la ventana principal:
+```javascript
+// Dentro del constructor
+this.inicioComponent = new InicioComponent();
+```
+* **Incorporación de componente dentro de constructor**
+
+Para que el componente sea visible inmediatamente al abrir la ventana principal se debe incorporar el componente al panel **pPrincipal** dentro del constructor:
+```javascript
+// Dentro del constructor
+vistaPrincipalTemplate.getPPrincipal()
+  .add(inicioComponent.getInicioTemplate());
+```
+
+* **Ajuste en el caso de incorporación del componente inicio**
+
+Como el componente **inicio** ya fue ejemplificado dentro del constructor ya se tiene la certeza de que este ya fue creado previamente por lo que tener el condicional preguntando esto es algo redundante, es por esto que en el caso de incorporación del componente **inicio** basta con indicar que se va a incorporar al panel **pPrincipal** solamente:
+```javascript
+case "Inicio":
+  vistaPrincipalTemplate.getPPrincipal()
+    .add(inicioComponent.getInicioTemplate());
+  break;
+```
+
 ### **Recordatorio**
 
 Recordando el recorrido, se tiene la vista principal con una integración de varios componentes gráficos, además existe un control de visibilidad mediante la navegación de componentes. También se reviso la importancia de controlar la creación de objetos de los componentes gráficos.
@@ -803,7 +833,7 @@ this.pAcciones.add(p6);
 Corriendo la aplicación es posible ver el resultado propuesto desde el comienzo:
 
 <div align='center'>
-    <img  src='https://i.imgur.com/HQUhJfh.png'>
+    <img  src='https://i.imgur.com/6LcW9rb.png'>
     <p>Vista Principal con el panel inicio terminado</p>
 </div>
 
