@@ -379,7 +379,7 @@ this.lTitulo = sObjGraficos.construirJLabel(
   null, null,
   sRecursos.getFontTitulo(),
   null,
-  sRecursos.getColorAzul(),
+  sRecursos.getColorPrincipal(),
   null,
   "l"
 );
@@ -739,7 +739,7 @@ public void crearContenidoPAcciones(){
     null, null,
     sRecursos.getFontTitulo(),
     null,
-    sRecursos.getColorAzul(),
+    sRecursos.getColorPrincipal(),
     null,
     "c"
   );

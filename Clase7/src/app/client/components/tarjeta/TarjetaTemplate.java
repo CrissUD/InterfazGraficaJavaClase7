@@ -54,7 +54,7 @@ public class TarjetaTemplate extends JPanel {
       null, null,
       sRecursos.getFontTitulo(),
       null,
-      sRecursos.getColorAzul(),
+      sRecursos.getColorPrincipal(),
       null,
       "l"
     );
