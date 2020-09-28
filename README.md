@@ -17,7 +17,12 @@ Curso propuesto por el grupo de trabajo Semana de Ingenio y Diseño (**SID**) de
 # Antes de Comenzar
 
 ### **Actualización de Imágenes en recursos**
-Para continuar con la lección deberá actualizar la carpeta **resources/images** ya que se han agregado nuevas imágenes. Estas las puede descargar en este mismo repositorio entrando a la carpeta **Clase7** seguido de **resources/images**.
+Para continuar con la lección deberá actualizar la carpeta **resources/images** ya que se han agregado nuevas imágenes. Estas las puede descargar en este mismo repositorio entrando a la carpeta **Clase7** seguido de **resources/images**. Es recomendable seguir la misma estructura que se realiza dentro de esta carpeta ya que se estarán creando subcarpetas:
+
+<div align='center'>
+    <img  src='https://i.imgur.com/ftFp3Gn.png'>
+    <p>Divisiones dentro de la carpeta Images de Resources</p>
+</div>
 
 ### **Ajustes en el servicio Recursos Service**
 
@@ -424,9 +429,9 @@ private ImageIcon iTarjeta1, iTarjeta2, iTarjeta3;
 **Ejemplificación:**
 ```javascript
 // Dentro del método crearObjetosDecoradores
-this.iTarjeta1 = new ImageIcon("clase7/resources/images/tarjeta1.jpg");
-this.iTarjeta2 = new ImageIcon("clase7/resources/images/tarjeta2.jpg");
-this.iTarjeta3 = new ImageIcon("clase7/resources/images/tarjeta3.jpg");
+this.iTarjeta1 = new ImageIcon("clase7/resources/images/tarjetas/tarjeta1.jpg");
+this.iTarjeta2 = new ImageIcon("clase7/resources/images/tarjetas/tarjeta2.jpg");
+this.iTarjeta3 = new ImageIcon("clase7/resources/images/tarjetas/tarjeta3.jpg");
 ```
 
 Note algo importante, aunque es el componente **tarjeta** el que va a mostrar las imágenes en pantalla estas van a ser creadas de su componente padre que es **inicio** en este caso. Ya que el componente **tarjeta** exige unas imágenes como parámetros y estas deben ser creadas previamente. Sin embargo el componente **Tarjeta** si se encarga de la redimensión en las imágenes.
@@ -718,12 +723,12 @@ private ImageIcon iClase, iPantalla, iIdea, iCelular, iEstadistica, iDireccion;
 **Ejemplificación:**
 ```javascript
 // Dentro del método crearObjetosDecoradores
-this.iClase = new ImageIcon("clase7/resources/images/clases.png");
-this.iPantalla = new ImageIcon("clase7/resources/images/pantalla.png");
-this.iCelular = new ImageIcon("clase7/resources/images/celular.png");
-this.iIdea = new ImageIcon("clase7/resources/images/ideas.png");
-this.iEstadistica = new ImageIcon("clase7/resources/images/estadisticas.png");
-this.iDireccion = new ImageIcon("clase7/resources/images/direccion.png");
+this.iClase = new ImageIcon("clase7/resources/images/acciones/clases.png");
+this.iPantalla = new ImageIcon("clase7/resources/images/acciones/pantalla.png");
+this.iCelular = new ImageIcon("clase7/resources/images/acciones/celular.png");
+this.iIdea = new ImageIcon("clase7/resources/images/acciones/ideas.png");
+this.iEstadistica = new ImageIcon("clase7/resources/images/acciones/estadisticas.png");
+this.iDireccion = new ImageIcon("clase7/resources/images/acciones/direccion.png");
 ```
 * Previo a la llamada del componente gráfico **Accion** se va crear un título al panel inferior **pAcciones**:
 ```javascript
